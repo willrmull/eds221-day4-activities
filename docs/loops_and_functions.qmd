@@ -1,0 +1,126 @@
+---
+title: "loops_and_functions"
+format: html
+editor: visual
+---
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                                                            ~~
+##                            FOR LOOPS REVISITED                           ----
+##                                                                            ~~
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Task 1
+```{r}
+#Create vectors storing days of the week and the transects we are interested in
+weekdays <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+transects <-  c("Transect A",  "Transect B", " Transect C")
+
+# Initialize matrix of desired size
+arr <- matrix(nrow = length(weekdays), ncol = length(transects))
+
+# Nested loops that iterate off weekdays and transects
+#Stores output as string in a matrix
+for (i in seq_along(transects)) {
+  for (j in seq_along(weekdays)) {
+    arr[j, i] <- paste(weekdays[j], "-", transects[i])
+  }
+}
+#View output
+arr
+```
+# Task Two
+```{r}
+#Function that frinds force using f = ma equation
+force <- function(mass, acceleration) {
+  f <- mass * acceleration
+  print(paste("The resulting force is", f, "Newtons"))
+}
+force (5, 10)
+```
+# Task 3
+```{r}
+fish_parms <- data.frame(sci_name = c("Chanos chanos", "Sphyraena barracuda	", "Caranx ignobilis"), common_name = c("Milkfish", "Great barracuda",  "	Giant trevally"), a_est = c(0.0905, 0.0181, 0.0353), b_est = c(2.52,  3.27, 3.05))
+fish_parms
+
+fish_weight <- function(fish_name, tot_length) {
+  if (fish_name == "Milkfish"){
+      weight <- 	0.0905 * tot_length^2.52
+  } else if (fish_name == "Great barracuda	"){
+      weight <- 	0.0181 * tot_length^3.27
+  } else if (fish_name == "	Giant trevally"){
+      weight <-	0.0353 * tot_length^3.05
+  }
+}
+fish_weight("Milkfish", 100)
+
+
+```
+
+#Do the same thing but use a variable length
+```{r}
+length_seq <- seq(from = 0, to = 100, by = 1)
+out_value <- vector("numeric", 100)
+
+fish_weight_length <- function(fish_name) {
+  for (i in seq_along(length_seq)){
+    if (fish_name == "Milkfish"){
+        weight <- 	0.0905 * length_seq[i]^2.52
+        out_value[i] <- weight
+    } else if (fish_name == "Great barracuda	"){
+        weight <- 	0.0181 * length_seq[i]^3.27
+        out_value[i] <- weight
+    } else if (fish_name == "	Giant trevally"){
+        weight <-	0.0353 * length_seq[i]^3.05
+        out_value[i] <-  weight
+    }
+  }
+  print(out_value)
+}
+milkfish_weights <- fish_weight_length("Milkfish")
+milkfish_weights
+```
+
+# Task 4 
+```{r}
+wave_power <- function(height, period) {
+  power <- 0.5 * (height^2) * period
+  print(power)
+}
+wave_power(3, 8)
+```
+# Same thing but over a range of time
+```{r}
+height_seq <- seq(from = 0, to = 3, by = 0.2)
+out_value <- vector("numeric", 15)
+
+wave_power_seq <- function(period) {
+  for (i in seq_along(height_seq)) {
+    power <- 0.5 * (height_seq[i]^2) * period
+    out_value[i] <- power
+  }
+print(out_value)
+}
+#Power over period of 8 seconds
+wave_power_seq(8)
+```
+
+```{r}
+
+deep_power_seq <- function(depth, height, period) {
+  if (depth >12) {
+      power <- 0.5 * (height^2) * period
+      message("Deep eq used") 
+      print(power)
+    } else if (depth < 12) {
+      power <- 0.81 * (height^2) * period
+      print(power)
+  }
+}
+deep_power_seq(13, 3, 8)
+```
+
+
+
