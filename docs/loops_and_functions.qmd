@@ -33,18 +33,23 @@ arr
 ```
 # Task Two
 ```{r}
-#Function that frinds force using f = ma equation
+#Function that calculates force given the arguments mass and acceleration
 force <- function(mass, acceleration) {
   f <- mass * acceleration
+  #Print result in the form of a sentence
   print(paste("The resulting force is", f, "Newtons"))
 }
+#Test equation
 force (5, 10)
 ```
 # Task 3
 ```{r}
+#Create a data frame of fish information
 fish_parms <- data.frame(sci_name = c("Chanos chanos", "Sphyraena barracuda	", "Caranx ignobilis"), common_name = c("Milkfish", "Great barracuda",  "	Giant trevally"), a_est = c(0.0905, 0.0181, 0.0353), b_est = c(2.52,  3.27, 3.05))
+#View data frame (3 x4 table)
 fish_parms
 
+# Funtino estimates the weight based on the name and length input by user
 fish_weight <- function(fish_name, tot_length) {
   if (fish_name == "Milkfish"){
       weight <- 	0.0905 * tot_length^2.52
@@ -54,18 +59,21 @@ fish_weight <- function(fish_name, tot_length) {
       weight <-	0.0353 * tot_length^3.05
   }
 }
+#Test function
 fish_weight("Milkfish", 100)
-
-
 ```
 
 #Do the same thing but use a variable length
 ```{r}
+# Seq representing variable engths the fish can be from 0 to 100
 length_seq <- seq(from = 0, to = 100, by = 1)
+#Vector for storing the output
 out_value <- vector("numeric", 100)
 
 fish_weight_length <- function(fish_name) {
+  #Use for loop to run for all lengths in length_seq
   for (i in seq_along(length_seq)){
+    #Conditionals for detecting what name was input 
     if (fish_name == "Milkfish"){
         weight <- 	0.0905 * length_seq[i]^2.52
         out_value[i] <- weight
@@ -79,12 +87,16 @@ fish_weight_length <- function(fish_name) {
   }
   print(out_value)
 }
+#Call funtion with milkfish ad store output
 milkfish_weights <- fish_weight_length("Milkfish")
+#View result
 milkfish_weights
+
 ```
 
 # Task 4 
 ```{r}
+#Calculate wave power from equation
 wave_power <- function(height, period) {
   power <- 0.5 * (height^2) * period
   print(power)
@@ -93,6 +105,7 @@ wave_power(3, 8)
 ```
 # Same thing but over a range of time
 ```{r}
+# Initalize a heigfh sequence and vector for storing the output
 height_seq <- seq(from = 0, to = 3, by = 0.2)
 out_value <- vector("numeric", 15)
 
@@ -108,14 +121,16 @@ wave_power_seq(8)
 ```
 
 ```{r}
+# Calculate the power but add a conditional for if the water is shallow or deep
 
 deep_power_seq <- function(depth, height, period) {
   if (depth >12) {
       power <- 0.5 * (height^2) * period
-      message("Deep eq used") 
+      message("Deep Equation Used") 
       print(power)
     } else if (depth < 12) {
       power <- 0.81 * (height^2) * period
+      message("Shallow Equation Used") 
       print(power)
   }
 }
